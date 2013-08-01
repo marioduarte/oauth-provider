@@ -67,13 +67,6 @@
     		<version>1.9.13</version>
     	</dependency>
     	
-    	<dependency>
-            <groupId>com.github.jsimone</groupId>
-            <artifactId>webapp-runner</artifactId>
-            <version>7.0.34.1</version>
-            <scope>provided</scope>
-        </dependency>
-    	
     	<!--  
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -158,7 +151,7 @@
                                 <artifactItem>
                                     <groupId>com.github.jsimone</groupId>
                                     <artifactId>webapp-runner</artifactId>
-                                    <version>7.0.34.0</version>
+                                    <version>7.0.34.1</version>
                                     <destFileName>webapp-runner.jar</destFileName>
                                 </artifactItem>
                             </artifactItems>
