@@ -35,6 +35,12 @@ public class SmartCloudProxyController {
 	    return user;
 	}
 	
+	@RequestMapping("token")
+	@ResponseBody
+	public String getToken() {
+		return proxyService.getToken();
+	}
+	
 	@RequestMapping(value="/**", method=RequestMethod.GET)
 	@ResponseBody
 	public String proxyRequest(HttpServletRequest request) throws Exception {
@@ -44,11 +50,6 @@ public class SmartCloudProxyController {
 	}
 	
 	
-	@RequestMapping("token")
-	@ResponseBody
-	public String getToken() {
-		return proxyService.getToken();
-	}
 	
 	private static String extractPathFromPattern(final HttpServletRequest request){
 	    String path = (String) request.getAttribute(
