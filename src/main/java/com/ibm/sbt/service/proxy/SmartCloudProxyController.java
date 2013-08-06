@@ -28,7 +28,7 @@ public class SmartCloudProxyController {
 	    return user;
 	}
 	
-	@RequestMapping(value="/{path}", method=RequestMethod.GET)
+	@RequestMapping(value="/**", method=RequestMethod.GET)
 	@ResponseBody
 	public String proxyRequest(@PathVariable("path") String path) throws Exception {
 		return proxyService.get(path);
