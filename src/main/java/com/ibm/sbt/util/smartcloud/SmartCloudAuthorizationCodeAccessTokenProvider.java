@@ -202,6 +202,7 @@ public class SmartCloudAuthorizationCodeAccessTokenProvider extends OAuth2Access
 		form.set("client_id", resource.getClientId());
 		form.set("client_secret", resource.getClientSecret());
 
+		logger.debug("Parameters for Token Request: "+ form.toString());
 		
 		return form;
 
