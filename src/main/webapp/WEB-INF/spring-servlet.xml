@@ -129,7 +129,7 @@
 	<context:property-placeholder location="classpath:/oauth-proxyapp.properties" />
 	
 	<oauth2:resource id="proxyApp" type="authorization_code" client-id="${clientId}" client-secret="${clientSecret}"
-		access-token-uri="${accessTokenUri}" user-authorization-uri="${userAuthorizationUri}"/>
+		access-token-uri="${accessTokenUri}" user-authorization-uri="${userAuthorizationUri}" authentication-scheme="form" />
 	
 	<bean id="proxyService" class="com.ibm.sbt.service.ProxyService">
 		<property name="baseUrl" value="${baseUrl}" />
