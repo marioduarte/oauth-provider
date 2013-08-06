@@ -1,18 +1,35 @@
 package com.ibm.sbt.service.proxy;
 
-import org.springframework.stereotype.Controller;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.HandlerMapping;
 
-@Controller
-@RequestMapping("proxy/smartcloud")
-public class SmartCloudProxyController extends ProxyController {
+import com.ibm.sbt.model.User;
 
-}
-/*
-public class SmartCloudProxyController {
+public class ProxyController {
 	protected final Log logger = LogFactory.getLog(getClass());
 	
 	private ProxyService proxyService;
+	
+	@RequestMapping("user")
+	@ResponseBody
+	public User randomPerson() {
+		org.springframework.security.core.userdetails.User springUser = 
+				(org.springframework.security.core.userdetails.User)
+				SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    String name = springUser.getUsername();
+		
+	    User user = new User();
+	    user.setName(name);
+	    return user;
+	}
 	
 	@RequestMapping("token")
 	@ResponseBody
@@ -42,4 +59,3 @@ public class SmartCloudProxyController {
 		this.proxyService = proxyService;
 	}
 }
-*/

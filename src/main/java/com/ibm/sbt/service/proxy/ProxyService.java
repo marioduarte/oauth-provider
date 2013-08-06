@@ -21,7 +21,7 @@ public class ProxyService {
 		return restTemplate.getForObject(url, String.class);
 	}
 	
-	public String getToken() {
-		return ((OAuth2RestTemplate)restTemplate).getAccessToken().getValue();
+	public void getOauth2Token() {
+		((OAuth2RestTemplate)restTemplate).getAccessToken(); // FIXME
 	}
 }

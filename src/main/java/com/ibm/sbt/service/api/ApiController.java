@@ -33,15 +33,15 @@ public class ApiController {
 	    return user;
 	}
 	
-	@RequestMapping("test1/**")
-	public String test1() {
-		logger.error("TEST1: **");
-		return "";
+	@RequestMapping("test1")
+	@ResponseBody
+	public void test1() {
+		logger.error("TEST1");
 	}
 	
-	@RequestMapping("test2/{path:.*}")
-	public String test2(@PathVariable("path") String path) {
-		logger.error("TEST2: "+path);
+	@RequestMapping("test2")
+	public String test2() {
+		logger.error("TEST2");
 		return "";
 	}
 	
