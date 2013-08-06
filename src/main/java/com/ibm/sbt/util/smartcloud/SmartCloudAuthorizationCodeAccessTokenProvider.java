@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -41,6 +43,8 @@ import org.springframework.web.client.ResponseExtractor;
  */
 public class SmartCloudAuthorizationCodeAccessTokenProvider extends OAuth2AccessTokenSupport implements AccessTokenProvider {
 
+	protected final Log logger = LogFactory.getLog(getClass());
+	
 	private StateKeyGenerator stateKeyGenerator = new DefaultStateKeyGenerator();
 
 	/**
@@ -239,6 +243,8 @@ public class SmartCloudAuthorizationCodeAccessTokenProvider extends OAuth2Access
 			form.set("callback_uri", redirectUri);
 		}
 
+		logger.debug("Parameters for Authorize Request: "+ form.toString());
+		
 		return form;
 
 	}
