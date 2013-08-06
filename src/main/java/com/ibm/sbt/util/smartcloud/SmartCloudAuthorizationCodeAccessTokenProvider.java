@@ -155,6 +155,9 @@ public class SmartCloudAuthorizationCodeAccessTokenProvider extends OAuth2Access
 		if (request.getCookie() != null) {
 			headers.set("Cookie", request.getCookie());
 		}
+		
+		// ADDED: required header by smartcloud
+		headers.set("Content-Type", "application/x-www-form-urlencoded");
 		return headers;
 	}
 
