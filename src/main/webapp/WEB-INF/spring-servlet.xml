@@ -22,12 +22,12 @@
    	
    	<mvc:resources mapping="/static/**" location="/WEB-INF/static/" />
 
+	<context:property-placeholder location="classpath:/config.properties" />
+	
+
 	<!--************************************************************************************************************ 
 	************************************    OAuth 2.0 Provider Implementation    ***********************************
 	*************************************************************************************************************-->
-
-	<context:property-placeholder location="classpath:/config.properties" />
-
 
 	<!--********************* Configuring Client Details ********************-->
 
@@ -132,7 +132,7 @@
 	
 	<bean id="smartCloudProxyService" class="com.ibm.sbt.service.proxy.ProxyService">
 		<property name="baseUrl" value="${smartcloud.baseUrl}" />
-		<property name="proxyAppRestTemplate">
+		<property name="restTemplate">
 			<oauth2:rest-template resource="smartCloudOAuth2Resources" access-token-provider="smartCloudAccessTokenProvider" />
 		</property>
 	</bean>
