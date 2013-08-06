@@ -159,9 +159,6 @@ public class SmartCloudAuthorizationCodeAccessTokenProvider extends OAuth2Access
 		if (request.getCookie() != null) {
 			headers.set("Cookie", request.getCookie());
 		}
-		
-		// ADDED: required header by SmartCloud
-		// headers.set("Content-Type", "application/x-www-form-urlencoded");
 		return headers;
 	}
 
@@ -198,8 +195,6 @@ public class SmartCloudAuthorizationCodeAccessTokenProvider extends OAuth2Access
 			form.set("callback_uri", redirectUri);
 		}
 
-		logger.debug("Parameters for Token Request: "+ form.toString());
-		
 		return form;
 
 	}
@@ -244,8 +239,6 @@ public class SmartCloudAuthorizationCodeAccessTokenProvider extends OAuth2Access
 		if (redirectUri != null) {
 			form.set("callback_uri", redirectUri);
 		}
-
-		logger.debug("Parameters for Authorize Request: "+ form.toString());
 		
 		return form;
 

@@ -1,4 +1,4 @@
-package com.ibm.sbt.service.api;
+package com.ibm.sbt.service.proxy;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ibm.sbt.model.User;
-import com.ibm.sbt.service.ProxyService;
 
 @Controller
-@RequestMapping("proxy")
-public class ProxyController {
+@RequestMapping("proxy/smartcloud")
+public class SmartCloudProxyController {
 
 	private ProxyService proxyService;
 	

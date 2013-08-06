@@ -26,7 +26,7 @@
 	************************************    OAuth 2.0 Provider Implementation    ***********************************
 	*************************************************************************************************************-->
 
-	<context:property-placeholder location="classpath:/oauth-implicit-client.properties" />
+	<context:property-placeholder location="classpath:/config.properties" />
 
 
 	<!--********************* Configuring Client Details ********************-->
@@ -126,25 +126,22 @@
 	
 	<!--******************** Protected Resource Configuration ********************-->
 	
-	<context:property-placeholder location="classpath:/oauth-proxyapp.properties" />
+	<bean id="smartCloudProxyController" class="com.ibm.sbt.service.proxy.SmartCloudProxyController">
+		<property name="proxyService" ref="smartCloudProxyService" />
+	</bean>
 	
-	<oauth2:resource id="proxyApp" type="authorization_code" client-id="${clientId}" client-secret="${clientSecret}"
-		access-token-uri="${accessTokenUri}" user-authorization-uri="${userAuthorizationUri}" client-authentication-scheme="form" />
-	
-	<bean id="proxyService" class="com.ibm.sbt.service.ProxyService">
-		<property name="baseUrl" value="${baseUrl}" />
+	<bean id="smartCloudProxyService" class="com.ibm.sbt.service.proxy.ProxyService">
+		<property name="baseUrl" value="${smartcloud.baseUrl}" />
 		<property name="proxyAppRestTemplate">
-			<oauth2:rest-template resource="proxyApp" access-token-provider="accessTokenProvider" />
+			<oauth2:rest-template resource="smartCloudOAuth2Resources" access-token-provider="smartCloudAccessTokenProvider" />
 		</property>
 	</bean>
 	
-	<bean id="proxyController" class="com.ibm.sbt.service.api.ProxyController">
-		<property name="proxyService" ref="proxyService" />
-	</bean>
+	<oauth2:resource id="smartCloudOAuth2Resources" type="authorization_code" client-authentication-scheme="form"
+		client-id="${smartcloud.clientId}" client-secret="${smartcloud.clientSecret}"
+		access-token-uri="${smartcloud.accessTokenUri}" user-authorization-uri="${smartcloud.userAuthorizationUri}" />
 	
-	
-	<!--******************** Hackery ********************-->
-	<bean id="accessTokenProvider" class="com.ibm.sbt.util.smartcloud.SmartCloudAccessTokenProvider" />
+	<bean id="smartCloudAccessTokenProvider" class="com.ibm.sbt.util.smartcloud.SmartCloudAccessTokenProvider" />
 	
 	
 	
