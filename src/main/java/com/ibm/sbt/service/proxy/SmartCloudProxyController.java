@@ -1,5 +1,7 @@
 package com.ibm.sbt.service.proxy;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,8 @@ import com.ibm.sbt.model.User;
 @RequestMapping("proxy/smartcloud")
 public class SmartCloudProxyController {
 
+	protected final Log logger = LogFactory.getLog(getClass());
+	
 	private ProxyService proxyService;
 	
 	@RequestMapping("user")
@@ -28,9 +32,10 @@ public class SmartCloudProxyController {
 	    return user;
 	}
 	
-	@RequestMapping(value="/**", method=RequestMethod.GET)
+	@RequestMapping(value="/{path}", method=RequestMethod.GET)
 	@ResponseBody
 	public String proxyRequest(@PathVariable("path") String path) throws Exception {
+		logger.info("Path: "+path);
 		return proxyService.get(path);
 	}
 	
