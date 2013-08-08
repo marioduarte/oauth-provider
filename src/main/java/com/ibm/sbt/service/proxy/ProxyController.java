@@ -1,6 +1,9 @@
 package com.ibm.sbt.service.proxy;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -16,15 +19,16 @@ public class ProxyController {
 	
 	private ProxyService proxyService;
 	
+
 	@RequestMapping("token")
 	@ResponseBody
-	public String getAccessToken(@RequestParam("redirectUrl") String redirectUri) {
+	public void getAccessToken(HttpServletResponse response, 
+			@RequestParam(value="redirectUrl", required=false) String redirectUrl) throws IOException {
 		proxyService.getAccessToken();
 		
-		if(redirectUri != null && redirectUri != "") {
-			return "redirect:"+redirectUri;
+		if(redirectUrl != null && redirectUrl != "") {
+			response.sendRedirect(redirectUrl);
 		}
-		return null;
 	}
 	
 	@RequestMapping(value="/**", method=RequestMethod.GET)

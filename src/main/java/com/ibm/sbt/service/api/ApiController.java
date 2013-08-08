@@ -1,14 +1,17 @@
 package com.ibm.sbt.service.api;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerMapping;
 
@@ -19,6 +22,22 @@ import com.ibm.sbt.model.User;
 public class ApiController {
 
 	protected final Log logger = LogFactory.getLog(getClass());
+	
+	@RequestMapping("token")
+	@ResponseBody
+	public void getAccessToken(HttpServletResponse response, @RequestParam(value="redirectUrl", required=false) String redirectUrl) throws IOException {
+		if(redirectUrl != null && redirectUrl != "") {
+			response.sendRedirect(redirectUrl);
+		}
+	}
+	
+	@RequestMapping("token2")
+	public String getAccessToken(@RequestParam(value="redirectUrl", required=false) String redirectUrl) throws IOException {
+		if(redirectUrl != null && redirectUrl != "") {
+			return "redirect:"+redirectUrl;
+		}
+		return null;
+	}
 	
 	@RequestMapping("user")
 	@ResponseBody
