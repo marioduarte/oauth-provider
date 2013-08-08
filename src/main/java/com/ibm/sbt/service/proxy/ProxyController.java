@@ -27,7 +27,7 @@ public class ProxyController {
 		proxyService.getAccessToken();
 		
 		if(redirectUrl != null && redirectUrl != "") {
-			response.sendRedirect(redirectUrl);
+			response.sendRedirect(redirectUrl + "#oauth2_service_token_received=true");
 		}
 	}
 	
