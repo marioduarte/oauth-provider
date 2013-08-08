@@ -7,6 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.HandlerMapping;
 
@@ -17,8 +18,13 @@ public class ProxyController {
 	
 	@RequestMapping("token")
 	@ResponseBody
-	public void getAccessToken() {
+	public String getAccessToken(@RequestParam("redirectUrl") String redirectUri) {
 		proxyService.getAccessToken();
+		
+		if(redirectUri != null && redirectUri != "") {
+			return "redirect:"+redirectUri;
+		}
+		return null;
 	}
 	
 	@RequestMapping(value="/**", method=RequestMethod.GET)
