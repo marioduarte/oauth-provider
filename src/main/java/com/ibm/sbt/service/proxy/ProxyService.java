@@ -25,6 +25,10 @@ public class ProxyService {
 		((OAuth2RestTemplate)restTemplate).getAccessToken();
 	}
 	
+	public String retrieveAccessToken() {
+		return ((OAuth2RestTemplate)restTemplate).getAccessToken().getValue();
+	}
+	
 	private String addTraillingSlash(String url) {
 		if(url.charAt(url.length()-1) != '/') {
 			return url+'/';

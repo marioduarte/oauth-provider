@@ -35,6 +35,10 @@ public class ProxyController {
 	@ResponseBody
 	public String proxyRequest(HttpServletRequest request) throws Exception {
 		String path = extractPathFromPattern(request);
+		
+		logger.warn("OAuth2token: "+ proxyService.retrieveAccessToken());
+		logger.warn("Service Path: "+path);
+		
 		return proxyService.get(path);
 	}
 	
