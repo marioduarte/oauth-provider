@@ -92,6 +92,7 @@
 
 	<!--******************** Resource Server Configuration ********************-->
 
+	<!-- 
 	<http pattern="/api/**" create-session="never" entry-point-ref="oauthAuthenticationEntryPoint"
 		xmlns="http://www.springframework.org/schema/security">
 		<anonymous enabled="false" />
@@ -99,6 +100,7 @@
 		<custom-filter ref="resourceServerFilter" before="FORM_LOGIN_FILTER" />
 		<access-denied-handler ref="oauthAccessDeniedHandler" />
 	</http>
+	 -->
 
 	<bean id="oauthAuthenticationEntryPoint" 
 		class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint" />
@@ -118,6 +120,7 @@
 		xmlns="http://www.springframework.org/schema/security">
 		<anonymous enabled="false" />
 		<intercept-url pattern="/proxy/**" access="ROLE_USER" />
+		<custom-filter ref="resourceServerFilter" before="EXCEPTION_TRANSLATION_FILTER" />
 		<custom-filter ref="oauth2ClientFilter" after="EXCEPTION_TRANSLATION_FILTER" />
 	</http>
 	

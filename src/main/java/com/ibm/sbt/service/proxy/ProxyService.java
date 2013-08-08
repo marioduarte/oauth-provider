@@ -9,7 +9,7 @@ public class ProxyService {
 	
 	
 	public void setBaseUrl(String baseUrl) {
-		this.baseUrl = baseUrl;
+		this.baseUrl = addTraillingSlash(baseUrl);
 	}
 	
 	public void setRestTemplate(OAuth2RestTemplate restTemplate) {
@@ -21,7 +21,16 @@ public class ProxyService {
 		return restTemplate.getForObject(url, String.class);
 	}
 	
-	public void getOauth2Token() {
-		((OAuth2RestTemplate)restTemplate).getAccessToken(); // FIXME
+	public void getAccessToken() {
+		((OAuth2RestTemplate)restTemplate).getAccessToken();
+	}
+	
+	private String addTraillingSlash(String url) {
+		if(url.charAt(url.length()-1) != '/') {
+			return url+'/';
+		}
+		else {
+			return url;
+		}
 	}
 }
