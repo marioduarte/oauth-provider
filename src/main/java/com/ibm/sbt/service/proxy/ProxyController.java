@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +37,11 @@ public class ProxyController {
 	public String proxyRequest(HttpServletRequest request) throws Exception {
 		String path = extractPathFromPattern(request);
 		
+		org.springframework.security.core.userdetails.User springUser = 
+				(org.springframework.security.core.userdetails.User)
+				SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+	    String name = springUser.getUsername();
+		logger.info("USER: "+name);
 		logger.info("OAuth2token: "+proxyService.retrieveAccessToken());
 		logger.info("Service Path: "+path);
 		
