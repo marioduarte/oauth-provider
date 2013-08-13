@@ -37,10 +37,11 @@ public class ProxyController {
 	public String proxyRequest(HttpServletRequest request) throws Exception {
 		String path = extractPathFromPattern(request);
 		
-		org.springframework.security.core.userdetails.User springUser = 
-				(org.springframework.security.core.userdetails.User)
-				SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		logger.info("XXXXX: "+proxyService.getRestTemplate().getOAuth2ClientContext().getAccessToken().getValue());
+		logger.info("XXXXX1: "+proxyService);
+		logger.info("XXXXX2: "+proxyService.getRestTemplate());
+		logger.info("XXXXX3: "+proxyService.getRestTemplate().getOAuth2ClientContext());
+		logger.info("XXXXX4: "+proxyService.getRestTemplate().getOAuth2ClientContext().getAccessToken());
+		logger.info("XXXXX5: "+proxyService.getRestTemplate().getOAuth2ClientContext().getAccessToken().getValue());
 		
 		return proxyService.get(path);
 	}
