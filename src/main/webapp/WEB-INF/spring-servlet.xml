@@ -121,8 +121,8 @@
 		xmlns="http://www.springframework.org/schema/security">
 		<anonymous enabled="false" />
 		<intercept-url pattern="/proxy/**" access="ROLE_USER" />
-		<custom-filter ref="resourceServerFilter" before="PRE_AUTH_FILTER" />
-		<custom-filter ref="oauth2ClientFilter" after="EXCEPTION_TRANSLATION_FILTER" />
+		<custom-filter ref="resourceServerFilter" after="PRE_AUTH_FILTER" />
+		<custom-filter ref="oauth2ClientFilter" before="PRE_AUTH_FILTER" />
 	</http>
 	
 	<oauth2:client id="oauth2ClientFilter" />
