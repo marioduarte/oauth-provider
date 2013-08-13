@@ -38,7 +38,7 @@ public class ProxyService {
 		}
 	}
 	
-	public RestOperations getRestTemplate() {
-		return restTemplate;
+	public OAuth2RestTemplate getRestTemplate() {
+		return (OAuth2RestTemplate)restTemplate;
 	}
 }
