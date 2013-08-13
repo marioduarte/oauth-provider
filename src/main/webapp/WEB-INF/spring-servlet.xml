@@ -92,8 +92,7 @@
 
 	<!--******************** Resource Server Configuration ********************-->
 
-
-	<http pattern="/api/**" create-session="never" entry-point-ref="oauthAuthenticationEntryPoint"
+	<http pattern="/api/**" entry-point-ref="oauthAuthenticationEntryPoint"
 		xmlns="http://www.springframework.org/schema/security">
 		<anonymous enabled="false" />
 		<intercept-url pattern="/api/**" access="ROLE_USER" />
@@ -116,7 +115,9 @@
 	************************************                  CLIENT                 ***********************************
 	*************************************************************************************************************-->
 
-	<http pattern="/proxy/**" create-session="never" entry-point-ref="oauthAuthenticationEntryPoint"
+	<!-- create-session="never"  -->
+
+	<http pattern="/proxy/**" entry-point-ref="oauthAuthenticationEntryPoint"
 		xmlns="http://www.springframework.org/schema/security">
 		<anonymous enabled="false" />
 		<intercept-url pattern="/proxy/**" access="ROLE_USER" />
