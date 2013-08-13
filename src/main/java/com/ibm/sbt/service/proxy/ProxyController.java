@@ -41,9 +41,7 @@ public class ProxyController {
 				(org.springframework.security.core.userdetails.User)
 				SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	    String name = springUser.getUsername();
-		logger.info("USER: "+name);
-		logger.info("OAuth2token: "+proxyService.retrieveAccessToken());
-		logger.info("Service Path: "+path);
+		logger.info("RestTemplate: "+proxyService.getRestTemplate());
 		
 		return proxyService.get(path);
 	}

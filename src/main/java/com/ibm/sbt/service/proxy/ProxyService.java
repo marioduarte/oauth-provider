@@ -37,4 +37,8 @@ public class ProxyService {
 			return url;
 		}
 	}
+	
+	public RestOperations getRestTemplate() {
+		return restTemplate;
+	}
 }
