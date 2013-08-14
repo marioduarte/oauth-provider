@@ -39,8 +39,8 @@
 		 https://github.com/SpringSource/spring-security-oauth/wiki/oAuth2#configuring-client-details
 	 -->
 	<oauth2:client-details-service id="clientDetailsService">
-		<oauth2:client client-id="${appClientId}" authorized-grant-types="implicit" resource-ids="proxy"
-			authorities="ROLE_CLIENT" scope="read,write" redirect-uri="${appRedirectUri}" />
+		<oauth2:client client-id="${clientApplicationClientId}" authorized-grant-types="implicit" resource-ids="proxy"
+			authorities="ROLE_CLIENT" scope="read,write" redirect-uri="${clientApplicationRedirectUri}" />
 	</oauth2:client-details-service>
 	
 	
@@ -57,20 +57,18 @@
 		 -->
 	</bean>
 	
-	<!-- switch to JdbcTokenStore -->
+	<!-- switch to org.springframework.security.oauth2.provider.token.JdbcTokenStore -->
 	<bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.InMemoryTokenStore" />
 	
 
 	<!--******************** Authorization Server Configuration ********************-->
 	
-	<bean id="userApprovalHandler" class="com.ibm.sbt.util.UserApprovalHandler">
-		<!--  
+	<bean id="userApprovalHandler" class="com.ibm.sbt.util.oauth2.UserApprovalHandler">
 		<property name="autoApproveClients">
 			<set>
-				<value>${appClientId}</value>
+				<value>${clientApplicationClientId}</value>
 			</set>
 		</property>
-		-->
 		<property name="tokenServices" ref="tokenServices" />
 	</bean>
 	
@@ -110,7 +108,6 @@
 	<oauth2:resource-server id="resourceServerFilter" resource-id="proxy" token-services-ref="tokenServices" />
 	
 	
-	
 	<!--************************************************************************************************************ 
 	************************************                  CLIENT                 ***********************************
 	*************************************************************************************************************-->
@@ -124,7 +121,6 @@
 	</http>
 	
 	<oauth2:client id="oauth2ClientFilter" />
-	
 	
 	<!--******************** Protected Resource Configuration ********************-->
 	
@@ -143,11 +139,13 @@
 		client-id="${smartcloud.clientId}" client-secret="${smartcloud.clientSecret}"
 		access-token-uri="${smartcloud.accessTokenUri}" user-authorization-uri="${smartcloud.userAuthorizationUri}" />
 	
-	<bean id="smartCloudAccessTokenProvider" class="com.ibm.sbt.util.smartcloud.SmartCloudAccessTokenProvider">
+	<bean id="smartCloudAccessTokenProvider" class="com.ibm.sbt.util.oauth2.smartcloud.SmartCloudAccessTokenProvider">
 		<property name="clientTokenServices" ref="clientTokenServices"></property>
 	</bean>
 	
-	<bean id="clientTokenServices" class="com.ibm.sbt.util.InMemoryClientTokenServices"/>
+	<!-- switch to org.springframework.security.oauth2.client.token.JdbcClientTokenServices -->
+	<bean id="clientTokenServices" class="com.ibm.sbt.util.oauth2.InMemoryClientTokenServices"/>
+	
 	
 	<!--************************************************************************************************************ 
 	************************************                 Security                ***********************************

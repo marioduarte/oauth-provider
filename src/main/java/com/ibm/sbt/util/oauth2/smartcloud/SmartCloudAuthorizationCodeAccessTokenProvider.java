@@ -1,4 +1,4 @@
-package com.ibm.sbt.util.smartcloud;
+package com.ibm.sbt.util.oauth2.smartcloud;
 
 import java.io.IOException;
 import java.net.URI;

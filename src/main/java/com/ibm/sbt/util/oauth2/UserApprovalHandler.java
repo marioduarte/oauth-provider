@@ -1,4 +1,4 @@
-package com.ibm.sbt.util;
+package com.ibm.sbt.util.oauth2;
 
 import java.util.Collection;
 import java.util.HashSet;
