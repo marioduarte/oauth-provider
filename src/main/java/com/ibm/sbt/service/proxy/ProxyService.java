@@ -1,5 +1,6 @@
 package com.ibm.sbt.service.proxy;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.web.client.RestOperations;
 
@@ -19,6 +20,11 @@ public class ProxyService {
 	public String get(String urlPath) throws Exception {
 		String url = baseUrl + urlPath;
 		return restTemplate.getForObject(url, String.class);
+	}
+	
+	public ResponseEntity<String> getEntity(String urlPath) throws Exception {
+		String url = baseUrl + urlPath;
+		return restTemplate.getForEntity(url, String.class);
 	}
 	
 	public void getAccessToken() {

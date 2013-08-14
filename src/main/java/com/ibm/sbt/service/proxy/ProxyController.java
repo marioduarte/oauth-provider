@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,13 +36,21 @@ public class ProxyController {
 	@ResponseBody
 	public String proxyRequest(HttpServletRequest request) throws Exception {
 		String path = extractPathFromPattern(request);
-		
-		logger.info("XXXXX1: "+proxyService);
-		logger.info("XXXXX2: "+proxyService.getRestTemplate());
-		logger.info("XXXXX3: "+proxyService.getRestTemplate().getOAuth2ClientContext());
-		logger.info("XXXXX4: "+proxyService.getRestTemplate().getOAuth2ClientContext().getAccessToken());
-		
 		return proxyService.get(path);
+	}
+	
+	@RequestMapping(value="/**", method=RequestMethod.GET, headers={"X-Accept=NoConversion"})
+	@ResponseBody
+	public String proxyRequestEntity(HttpServletRequest request) throws Exception {
+		String path = extractPathFromPattern(request);
+		return proxyService.getEntity(path).getBody();
+	}
+	
+	@RequestMapping(value="/**", method=RequestMethod.GET, headers={"X-Accept=EntityResponse"})
+	@ResponseBody
+	public ResponseEntity<String> proxyRequestEntityResponse(HttpServletRequest request) throws Exception {
+		String path = extractPathFromPattern(request);
+		return proxyService.getEntity(path);
 	}
 	
 	private static String extractPathFromPattern(final HttpServletRequest request){
