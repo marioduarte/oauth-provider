@@ -91,7 +91,7 @@
 
 
 	<!--******************** Resource Server Configuration ********************-->
-
+	<!--  
 	<http pattern="/api/**" entry-point-ref="oauthAuthenticationEntryPoint"
 		xmlns="http://www.springframework.org/schema/security">
 		<anonymous enabled="false" />
@@ -99,7 +99,7 @@
 		<custom-filter ref="resourceServerFilter" before="EXCEPTION_TRANSLATION_FILTER" />
 		<access-denied-handler ref="oauthAccessDeniedHandler" />
 	</http>
-
+	-->
 
 	<bean id="oauthAuthenticationEntryPoint" 
 		class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint" />
@@ -115,9 +115,7 @@
 	************************************                  CLIENT                 ***********************************
 	*************************************************************************************************************-->
 
-	<!-- create-session="never"  -->
-
-	<http pattern="/proxy/**" entry-point-ref="oauthAuthenticationEntryPoint"
+	<http pattern="/proxy/**" create-session="never" entry-point-ref="oauthAuthenticationEntryPoint"
 		xmlns="http://www.springframework.org/schema/security">
 		<anonymous enabled="false" />
 		<intercept-url pattern="/proxy/**" access="ROLE_USER" />
@@ -145,9 +143,11 @@
 		client-id="${smartcloud.clientId}" client-secret="${smartcloud.clientSecret}"
 		access-token-uri="${smartcloud.accessTokenUri}" user-authorization-uri="${smartcloud.userAuthorizationUri}" />
 	
-	<bean id="smartCloudAccessTokenProvider" class="com.ibm.sbt.util.smartcloud.SmartCloudAccessTokenProvider" />
+	<bean id="smartCloudAccessTokenProvider" class="com.ibm.sbt.util.smartcloud.SmartCloudAccessTokenProvider">
+		<property name="clientTokenServices" ref="clientTokenServices"></property>
+	</bean>
 	
-	
+	<bean id="clientTokenServices" class="com.ibm.sbt.util.InMemoryClientTokenServices"/>
 	
 	<!--************************************************************************************************************ 
 	************************************                 Security                ***********************************

@@ -41,7 +41,6 @@ public class ProxyController {
 		logger.info("XXXXX2: "+proxyService.getRestTemplate());
 		logger.info("XXXXX3: "+proxyService.getRestTemplate().getOAuth2ClientContext());
 		logger.info("XXXXX4: "+proxyService.getRestTemplate().getOAuth2ClientContext().getAccessToken());
-		logger.info("XXXXX5: "+proxyService.getRestTemplate().getOAuth2ClientContext().getAccessToken().getValue());
 		
 		return proxyService.get(path);
 	}
